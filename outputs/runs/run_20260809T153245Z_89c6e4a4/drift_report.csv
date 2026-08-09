@@ -1,0 +1,3 @@
+feature,train_mean,test_mean,train_std,test_std,mean_shift_abs,psi
+feature_1,0.0,-0.8451542547285166,1.0,0.0,0.8451542547285166,0.0
+feature_2,0.0,-0.8451542547285166,1.0,0.0,0.8451542547285166,0.0

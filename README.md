@@ -17,6 +17,7 @@ This project highlights:
 
 ## Methodology
 - Data preparation: explicit schema validation, train/test split, and standardized numerical features.
+- Data sources: the repository includes workbook inputs in the data folder (`contacts.xlsx` and `searches.xlsx`). The loader can read a data directory, merge contacts with searches on the guest/user key, and derive a target from interaction signals such as messages, guests, and searches.
 - Models trained: linear regression and XGBoost regressor.
 - Prediction approaches evaluated: mean baseline, linear regression, and XGBoost.
 - Evaluation metrics: MAE, RMSE, and R2 on holdout data.
@@ -25,13 +26,13 @@ This project highlights:
 
 ## Pipeline Architecture
 The workflow is orchestrated through [src/run_pipeline.py](src/run_pipeline.py), which chains together modular components:
-- **data_loader**: ingests CSV/Parquet production data (with synthetic fallback for local scaffolding) and captures source metadata/versioning.
+- **data_loader**: ingests CSV/Parquet/Excel data and, when given a data directory, reads the included contacts/searches workbooks, joins them, and captures source metadata/versioning.
 - **preprocess**: enforces schema checks (required columns, types, ranges, null thresholds), then splits/scales data.
 - **train_model**: trains linear regression and XGBoost models.
 - **evaluate**: computes metrics, appends metrics history, and emits alert thresholds.
 - **monitoring**: writes drift and prediction-shift artifacts for ongoing monitoring.
 
-Run the complete pipeline with `python -m src.run_pipeline` or call `run_pipeline()` directly from Python with custom parameters (output directory, data source path/version, sample count, test split ratio, random seed).
+Run the complete pipeline with `python -m src.run_pipeline` for the default synthetic baseline, or call `run_pipeline()` directly from Python with a data path such as `data/` to process the workbook-based contacts/searches data.
 
 ## Project Structure
 - `src/` contains the implementation code used by the pipeline.
@@ -84,8 +85,10 @@ The similar filenames in `src/` and `tests/` are intentional. For example, `test
 ## Quick Run
 - Install dependencies:
   - `pip install -r requirements.txt`
-- Run full pipeline:
+- Run the default pipeline:
   - `python -m src.run_pipeline`
+- Run the workbook-based workflow with the included data folder:
+  - `python -c "from pathlib import Path; from src.run_pipeline import run_pipeline; run_pipeline(output_dir=Path('outputs'), data_path='data')"`
 - Run tests:
   - `python -m unittest discover -s tests -v`
 

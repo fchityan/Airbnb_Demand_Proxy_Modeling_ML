@@ -1,0 +1,5 @@
+model,feature,importance,coefficient
+linear_regression,feature_2,0.7395099728874525,0.7395099728874525
+linear_regression,feature_1,0.7395099728874522,0.7395099728874522
+xgboost,feature_1,0.597488522529602,
+xgboost,feature_2,0.40251144766807556,

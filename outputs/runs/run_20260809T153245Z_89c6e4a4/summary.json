@@ -1,0 +1,33 @@
+{
+  "run_id": "run_20260809T153245Z_89c6e4a4",
+  "evaluated_at_utc": "2026-08-09T15:32:45.329951+00:00",
+  "models_evaluated": [
+    "mean_baseline",
+    "linear_regression",
+    "xgboost"
+  ],
+  "best_model_by_rmse": {
+    "model": "linear_regression",
+    "mae": 0.0,
+    "rmse": 0.0,
+    "r2": NaN
+  },
+  "actual_summary": {
+    "mean_actual": 11.0,
+    "std_actual": 0.0
+  },
+  "prediction_summary": {
+    "mean_baseline": {
+      "mean_predicted": 12.25,
+      "std_predicted": 0.0
+    },
+    "linear_regression": {
+      "mean_predicted": 11.0,
+      "std_predicted": 0.0
+    },
+    "xgboost": {
+      "mean_predicted": 10.003108978271484,
+      "std_predicted": 0.0
+    }
+  }
+}

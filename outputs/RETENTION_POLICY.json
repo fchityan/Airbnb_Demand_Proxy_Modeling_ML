@@ -1,0 +1,5 @@
+{
+  "retention_days": 30,
+  "delete_strategy": "runs_older_than_retention",
+  "audit_log_required": true
+}

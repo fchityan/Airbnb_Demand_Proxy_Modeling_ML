@@ -1,0 +1,18 @@
+{
+  "run_id": "run_20260809T153245Z_89c6e4a4",
+  "evaluated_at_utc": "2026-08-09T15:32:45.329951+00:00",
+  "thresholds": {
+    "mae_max": 25.0,
+    "rmse_max": 35.0,
+    "r2_min": 0.4,
+    "relative_rmse_degradation_max": 0.1
+  },
+  "alerts": {
+    "best_model": "linear_regression",
+    "mae_alert": false,
+    "rmse_alert": false,
+    "r2_alert": false,
+    "relative_rmse_alert": false,
+    "relative_rmse_degradation": 0.0
+  }
+}

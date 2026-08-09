@@ -12,6 +12,12 @@ class DataLoaderTests(unittest.TestCase):
         self.assertIn("target", dataframe.columns)
         self.assertEqual(len(dataframe), 20)
 
+    def test_load_data_falls_back_to_synthetic_when_data_dir_is_missing(self) -> None:
+        dataframe = load_data(data_path="data", n_samples=200, random_state=42)
+
+        self.assertIn("target", dataframe.columns)
+        self.assertEqual(len(dataframe), 200)
+
     def test_load_data_raises_for_small_sample_count(self) -> None:
         with self.assertRaises(ValueError):
             load_data(n_samples=1)

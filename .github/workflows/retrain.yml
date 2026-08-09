@@ -1,0 +1,38 @@
+name: Scheduled Retrain
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+jobs:
+  retrain-and-evaluate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run training pipeline
+        run: python -m src.run_pipeline
+
+      - name: Retention cleanup
+        run: python -m src.ops --output-dir outputs --retention-days 30
+
+      - name: Upload outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: retrain-outputs
+          path: outputs/

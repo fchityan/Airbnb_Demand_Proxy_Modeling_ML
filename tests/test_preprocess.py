@@ -17,12 +17,13 @@ class PreprocessTests(unittest.TestCase):
             }
         )
 
-        x_train, x_test, y_train, y_test = split_and_scale(dataframe, test_size=0.4, random_state=42)
+        x_train, x_test, y_train, y_test, scaler = split_and_scale(dataframe, test_size=0.4, random_state=42)
 
         self.assertEqual(x_train.shape, (3, 2))
         self.assertEqual(x_test.shape, (2, 2))
         self.assertEqual(len(y_train), 3)
         self.assertEqual(len(y_test), 2)
+        self.assertIsNotNone(scaler)
 
     def test_split_and_scale_raises_for_missing_target(self) -> None:
         dataframe = pd.DataFrame({"feature_1": [1.0, 2.0, 3.0]})

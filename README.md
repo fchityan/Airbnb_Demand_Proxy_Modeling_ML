@@ -16,20 +16,22 @@ This project highlights:
 - Keep the workflow reproducible and testable.
 
 ## Methodology
-- Data preparation: train/test split with standardized numerical features.
+- Data preparation: explicit schema validation, train/test split, and standardized numerical features.
 - Models trained: linear regression and XGBoost regressor.
 - Prediction approaches evaluated: mean baseline, linear regression, and XGBoost.
 - Evaluation metrics: MAE, RMSE, and R2 on holdout data.
 - Explainability: linear coefficients and XGBoost feature importances.
+- Monitoring: feature drift (PSI), prediction/target distribution shifts, and metric degradation alerts.
 
 ## Pipeline Architecture
 The workflow is orchestrated through [src/run_pipeline.py](src/run_pipeline.py), which chains together modular components:
-- **data_loader**: generates synthetic regression data with 12 features.
-- **preprocess**: splits train/test and standardizes features.
+- **data_loader**: ingests CSV/Parquet production data (with synthetic fallback for local scaffolding) and captures source metadata/versioning.
+- **preprocess**: enforces schema checks (required columns, types, ranges, null thresholds), then splits/scales data.
 - **train_model**: trains linear regression and XGBoost models.
-- **evaluate**: computes metrics and persists artifacts.
+- **evaluate**: computes metrics, appends metrics history, and emits alert thresholds.
+- **monitoring**: writes drift and prediction-shift artifacts for ongoing monitoring.
 
-Run the complete pipeline with `python -m src.run_pipeline` or call `run_pipeline()` directly from Python with custom parameters (output directory, sample count, test split ratio, random seed).
+Run the complete pipeline with `python -m src.run_pipeline` or call `run_pipeline()` directly from Python with custom parameters (output directory, data source path/version, sample count, test split ratio, random seed).
 
 ## Project Structure
 - `src/` contains the implementation code used by the pipeline.
@@ -64,6 +66,20 @@ The similar filenames in `src/` and `tests/` are intentional. For example, `test
 - `outputs/summary.json`
   - Purpose: provide a quick, machine-readable report for downstream use.
   - Includes: evaluated models list, best model by RMSE, actual-target summary statistics, and per-model prediction summaries.
+- `outputs/run_manifest.json`
+  - Purpose: canonical run metadata tying data source, training config, model version, artifacts, SLOs, and governance settings to one run ID.
+- `outputs/model_bundle.joblib`
+  - Purpose: export preprocessing + selected model together to avoid train/serve skew.
+- `outputs/runs/<run_id>/...`
+  - Purpose: immutable versioned artifact store per training run.
+- `outputs/metrics_history.csv`
+  - Purpose: longitudinal MAE/RMSE/R2 tracking across runs.
+- `outputs/drift_report.csv` and `outputs/prediction_shift.csv`
+  - Purpose: monitor feature drift and target/prediction distribution shifts.
+- `outputs/monitoring_alerts.json`
+  - Purpose: alerts for threshold breaches and relative RMSE degradation.
+- `outputs/audit.log`
+  - Purpose: append-only audit trail of run lifecycle events.
 
 ## Quick Run
 - Install dependencies:
@@ -80,25 +96,28 @@ The similar filenames in `src/` and `tests/` are intentional. For example, `test
 
 ## Deployment Considerations
 - Data and schema management
-  - Replace synthetic generation with production ingestion and enforce explicit schema checks (column presence, types, ranges, null thresholds).
-  - Version input datasets and retain metadata (run timestamp, source version, row counts).
+  - Production ingestion now supports CSV/Parquet and captures source metadata (source version, row count, timestamp, dataset fingerprint).
+  - Schema checks are enforced via `validate_dataframe_schema` for required columns, data types, ranges, and null thresholds.
 - Reproducibility and model versioning
-  - Pin dependency versions and capture training configuration per run.
-  - Persist model artifacts with version tags and keep evaluation outputs tied to the same run ID.
+  - Dependencies are pinned in `requirements.txt`.
+  - Each run records full training configuration and emits a versioned `model_bundle_<run_id>.joblib`.
+  - All outputs are tied to run-specific directories under `outputs/runs/<run_id>/`.
 - Serving and inference
-  - Export preprocessing + model together to avoid train/serve skew.
-  - Define latency and throughput SLOs for batch or online prediction paths.
+  - Preprocessor + trained model are exported as one bundle.
+  - Batch/online latency and throughput SLOs are captured in the run manifest.
 - Monitoring and drift
-  - Track data drift and target/prediction distribution shifts.
-  - Monitor MAE/RMSE/R2 over time and set alert thresholds for degradation.
+  - Drift artifacts include PSI-based feature drift and prediction/target distribution shift reports.
+  - Metric history and alert thresholds are generated per run for MAE/RMSE/R2 degradation tracking.
 - Security and governance
-  - Avoid storing sensitive data in plain artifacts.
-  - Add access controls, audit logs, and retention policies for data and model outputs.
+  - No raw records are persisted in artifacts; only aggregate metadata/statistics are stored.
+  - Model bundles and manifests are written with restricted file permissions.
+  - Audit logging and retention policy metadata are included.
 - CI/CD and operational readiness
-  - Run unit tests in CI on every pull request.
-  - Add a scheduled retraining/evaluation workflow and a rollback plan for model regressions.
+  - PR/unit-test workflow in `.github/workflows/ci.yml`.
+  - Scheduled retraining workflow in `.github/workflows/retrain.yml`.
+  - Rollback procedure in `docs/rollback_plan.md`.
 
 ## Limitations
-- Current pipeline uses synthetic data as a deterministic scaffold.
-- Production deployment requires real data ingestion, quality checks, and monitoring.
-- Additional model comparison and hyperparameter optimization can improve robustness.
+- Synthetic fallback still exists for local/testing scaffolding when no input path is provided.
+- Access control enforcement in this repository is file-permission based; enterprise IAM/RBAC integration must be configured in deployment infrastructure.
+- Additional model comparison and hyperparameter optimization can further improve robustness.

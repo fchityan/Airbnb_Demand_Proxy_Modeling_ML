@@ -14,7 +14,7 @@ from src.train_model import (
 class TrainModelTests(unittest.TestCase):
     def setUp(self) -> None:
         dataframe = load_data(random_state=42, n_samples=200)
-        self.x_train, self.x_test, self.y_train, _ = split_and_scale(dataframe)
+        self.x_train, self.x_test, self.y_train, _, _ = split_and_scale(dataframe)
 
     def test_train_models_returns_expected_keys(self) -> None:
         models = train_models(self.x_train, self.y_train, random_state=42)

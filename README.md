@@ -1,19 +1,38 @@
 # Airbnb Demand Proxy Modeling ML
 
 ## Executive Summary
-This repository demonstrates a production-minded machine learning workflow for demand proxy modeling using Airbnb-style data structures. It combines exploratory analysis in a notebook with a modular Python pipeline, automated evaluation outputs, and unit tests.
+This repository is a full machine learning pipeline for Airbnb-style demand proxy modeling, covering the complete lifecycle from data ingestion and validation to training, evaluation, monitoring, and model packaging. It combines an exploratory notebook with a modular Python implementation, reproducible execution, automated artifact generation, and practical MLOps workflows.
 
 This project highlights:
-- End-to-end ML pipeline design with clear module boundaries.
-- Baseline and model-based regression benchmarking.
-- Reproducibility through scripted execution and tests.
+- Full end-to-end ML pipeline design with clear module boundaries for ingestion, preprocessing, training, evaluation, and monitoring.
+- Run manifests, model versioning, artifact retention, drift tracking, alerting, and rollback planning.
+- Baseline and model-based regression benchmarking across multiple algorithms.
+- Reproducibility through scripted execution, configuration tracking, versioned outputs, and automated tests.
 - Model interpretability artifacts for both linear and tree-based approaches.
+- Operational practices for retraining, auditability, and pipeline governance.
 
 ## Project Objectives
-- Build demand proxy predictions using baseline and ML models.
-- Compare model quality using MAE, RMSE, and R2.
-- Export explainability artifacts for model interpretation.
-- Keep the workflow reproducible and testable.
+- Build demand proxy predictions using baseline and ML models across a full data-to-model workflow.
+- Compare model quality using MAE, RMSE, and R2 under a repeatable evaluation process.
+- Export explainability artifacts for model interpretation and stakeholder review.
+- Keep the workflow reproducible, testable, and production-aligned.
+- Operationalize the pipeline with MLOps controls for monitoring, versioning, governance, and retraining readiness.
+
+## MLOps Highlights
+This project includes practical MLOps patterns that go beyond a single notebook experiment. The pipeline is structured to support day-to-day model operations in a more disciplined way:
+
+- End-to-end lifecycle management: raw data ingestion, schema validation, preprocessing, training, model selection, evaluation, and artifact publication are handled through dedicated modules instead of ad hoc scripts.
+- Reproducibility and traceability: each run produces outputs under `outputs/runs/<run_id>/`, a canonical run manifest, and versioned model bundles tied to configuration and dataset metadata.
+- Experiment and model governance: model metadata, source lineage, artifact retention policies, and audit logging support accountability across training cycles.
+- Model packaging: the trained preprocessor and model are bundled together in a single artifact to reduce train/serve skew and make deployment handoff easier.
+- Monitoring and drift detection: feature drift, prediction shift, metric history, and alert thresholds are generated to detect distribution drift and model degradation over time.
+- Operational alerting: monitoring artifacts and alert JSON records threshold breaches and relative RMSE degradation so teams can investigate or retrain when needed.
+- Retraining and rollback readiness: the repository includes scheduled retraining workflow patterns and a documented rollback plan to support safer model updates.
+- CI/CD and quality checks: the project structure anticipates automated validation via tests and workflow automation, which helps maintain reliability before deployment.
+- Observability: training and evaluation outputs are stored in a consistent format so dashboards, reports, and incident reviews can use them directly.
+- Security and governance controls: restricted file permissions, audit trail capture, and retention metadata help keep the workflow more responsible and transparent.
+
+These MLOps elements make the repository useful both as a learning project and as a template for a more disciplined ML workflow.
 
 ## Methodology
 - Data preparation: explicit schema validation, train/test split, and standardized numerical features.

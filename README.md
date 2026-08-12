@@ -111,6 +111,15 @@ The similar filenames in `src/` and `tests/` are intentional. For example, `test
 - Run tests:
   - `python -m unittest discover -s tests -v`
 
+### Run with Docker
+- Build the image:
+  - `docker build -t airbnb-demand-proxy-model .`
+- Run the default synthetic pipeline and persist artifacts locally:
+  - `docker run --rm -v "$PWD/outputs:/app/outputs" airbnb-demand-proxy-model`
+- The container runs as UID/GID `1000:1000` and writes restricted artifacts with mode `600`. If the host user has a different UID/GID, override the container user:
+  - `docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/outputs:/app/outputs" airbnb-demand-proxy-model`
+- Generated model bundles, metrics, manifests, and monitoring reports are written under `outputs/`.
+
 ## Validation and Error Handling
 - `load_data` validates that `n_samples >= 2`.
 - `split_and_scale` validates target-column existence, non-empty features, minimum row count, and `test_size` bounds.

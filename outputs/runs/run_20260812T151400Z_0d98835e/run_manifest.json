@@ -1,8 +1,8 @@
 {
-  "run_id": "run_20260812T152700Z_ac08eb4d",
-  "run_timestamp_utc": "2026-08-12T15:27:00.501424+00:00",
+  "run_id": "run_20260812T151400Z_0d98835e",
+  "run_timestamp_utc": "2026-08-12T15:14:00.375319+00:00",
   "source_metadata": {
-    "loaded_at_utc": "2026-08-12T15:27:00.504680+00:00",
+    "loaded_at_utc": "2026-08-12T15:14:00.400878+00:00",
     "source_name": "synthetic_generator",
     "source_version": "v1",
     "row_count": 2000,
@@ -29,16 +29,16 @@
       "feature_11"
     ]
   },
-  "model_version": "linear_regression_run_20260812T152700Z_ac08eb4d",
+  "model_version": "linear_regression_run_20260812T151400Z_0d98835e",
   "artifact_paths": {
-    "run_dir": "outputs/runs/run_20260812T152700Z_ac08eb4d",
-    "feature_importance": "outputs/runs/run_20260812T152700Z_ac08eb4d/feature_importance.csv",
-    "validation_metrics": "outputs/runs/run_20260812T152700Z_ac08eb4d/validation_metrics.csv",
-    "summary": "outputs/runs/run_20260812T152700Z_ac08eb4d/summary.json",
-    "drift_report": "outputs/runs/run_20260812T152700Z_ac08eb4d/drift_report.csv",
-    "prediction_shift": "outputs/runs/run_20260812T152700Z_ac08eb4d/prediction_shift.csv",
+    "run_dir": "outputs/runs/run_20260812T151400Z_0d98835e",
+    "feature_importance": "outputs/runs/run_20260812T151400Z_0d98835e/feature_importance.csv",
+    "validation_metrics": "outputs/runs/run_20260812T151400Z_0d98835e/validation_metrics.csv",
+    "summary": "outputs/runs/run_20260812T151400Z_0d98835e/summary.json",
+    "drift_report": "outputs/runs/run_20260812T151400Z_0d98835e/drift_report.csv",
+    "prediction_shift": "outputs/runs/run_20260812T151400Z_0d98835e/prediction_shift.csv",
     "model_bundle": "outputs/model_bundle.joblib",
-    "model_bundle_versioned": "outputs/runs/run_20260812T152700Z_ac08eb4d/model_bundle_run_20260812T152700Z_ac08eb4d.joblib"
+    "model_bundle_versioned": "outputs/runs/run_20260812T151400Z_0d98835e/model_bundle_run_20260812T151400Z_0d98835e.joblib"
   },
   "slo": {
     "batch": {

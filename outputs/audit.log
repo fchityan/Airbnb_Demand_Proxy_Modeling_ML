@@ -4,3 +4,7 @@
 {"event": "pipeline_run_completed", "run_id": "run_20260809T163107Z_cd907ef0", "timestamp_utc": "2026-08-09T16:31:08.674526+00:00", "model_version": "linear_regression_run_20260809T163107Z_cd907ef0"}
 {"event": "pipeline_run_started", "run_id": "run_20260809T163725Z_0077e91e", "timestamp_utc": "2026-08-09T16:37:25.434345+00:00", "source_version": "v1"}
 {"event": "pipeline_run_completed", "run_id": "run_20260809T163725Z_0077e91e", "timestamp_utc": "2026-08-09T16:37:28.913696+00:00", "model_version": "linear_regression_run_20260809T163725Z_0077e91e"}
+{"event": "pipeline_run_started", "run_id": "run_20260812T151400Z_0d98835e", "timestamp_utc": "2026-08-12T15:14:00.375319+00:00", "source_version": "v1"}
+{"event": "pipeline_run_completed", "run_id": "run_20260812T151400Z_0d98835e", "timestamp_utc": "2026-08-12T15:14:01.468494+00:00", "model_version": "linear_regression_run_20260812T151400Z_0d98835e"}
+{"event": "pipeline_run_started", "run_id": "run_20260812T152700Z_ac08eb4d", "timestamp_utc": "2026-08-12T15:27:00.501424+00:00", "source_version": "v1"}
+{"event": "pipeline_run_completed", "run_id": "run_20260812T152700Z_ac08eb4d", "timestamp_utc": "2026-08-12T15:27:01.372681+00:00", "model_version": "linear_regression_run_20260812T152700Z_ac08eb4d"}

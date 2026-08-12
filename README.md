@@ -32,8 +32,6 @@ This project includes practical MLOps patterns that go beyond a single notebook 
 - Observability: training and evaluation outputs are stored in a consistent format so dashboards, reports, and incident reviews can use them directly.
 - Security and governance controls: restricted file permissions, audit trail capture, and retention metadata help keep the workflow more responsible and transparent.
 
-These MLOps elements make the repository useful both as a learning project and as a template for a more disciplined ML workflow.
-
 ## Methodology
 - Data preparation: explicit schema validation, train/test split, and standardized numerical features.
 - Data sources: the repository includes workbook inputs in the data folder (`contacts.xlsx` and `searches.xlsx`). The loader can read a data directory, merge contacts with searches on the guest/user key, and derive a target from interaction signals such as messages, guests, and searches.

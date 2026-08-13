@@ -1,20 +1,24 @@
-FROM python:3.11-slim
+FROM python:3.11-slim-bookworm
+
+ARG APP_UID=1000
+ARG APP_GID=1000
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
 
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install --no-cache-dir --no-compile -r requirements.txt
 
-COPY src ./src
+RUN groupadd --gid "${APP_GID}" app \
+    && useradd --uid "${APP_UID}" --gid "${APP_GID}" --create-home --no-log-init app \
+    && mkdir -p /app/outputs \
+    && chown -R app:app /app
 
-RUN mkdir -p /app/outputs
-
-RUN groupadd --gid 1000 app \
-    && useradd --uid 1000 --gid 1000 --create-home app
+COPY --chown=app:app src ./src
 
 USER 1000:1000
 

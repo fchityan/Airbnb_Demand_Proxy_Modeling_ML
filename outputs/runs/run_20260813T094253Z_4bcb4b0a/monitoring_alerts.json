@@ -1,6 +1,6 @@
 {
-  "run_id": "run_20260813T134115Z_32b915fb",
-  "evaluated_at_utc": "2026-08-13T13:41:16.766682+00:00",
+  "run_id": "run_20260813T094253Z_4bcb4b0a",
+  "evaluated_at_utc": "2026-08-13T09:42:54.066346+00:00",
   "thresholds": {
     "mae_max": 25.0,
     "rmse_max": 35.0,

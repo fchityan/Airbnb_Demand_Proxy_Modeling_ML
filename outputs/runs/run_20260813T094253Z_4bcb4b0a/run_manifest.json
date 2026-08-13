@@ -1,8 +1,8 @@
 {
-  "run_id": "run_20260813T134115Z_32b915fb",
-  "run_timestamp_utc": "2026-08-13T13:41:15.864373+00:00",
+  "run_id": "run_20260813T094253Z_4bcb4b0a",
+  "run_timestamp_utc": "2026-08-13T09:42:53.033696+00:00",
   "source_metadata": {
-    "loaded_at_utc": "2026-08-13T13:41:15.870405+00:00",
+    "loaded_at_utc": "2026-08-13T09:42:53.045410+00:00",
     "source_name": "synthetic_generator",
     "source_version": "v1",
     "row_count": 2000,
@@ -29,16 +29,16 @@
       "feature_11"
     ]
   },
-  "model_version": "linear_regression_run_20260813T134115Z_32b915fb",
+  "model_version": "linear_regression_run_20260813T094253Z_4bcb4b0a",
   "artifact_paths": {
-    "run_dir": "outputs/runs/run_20260813T134115Z_32b915fb",
-    "feature_importance": "outputs/runs/run_20260813T134115Z_32b915fb/feature_importance.csv",
-    "validation_metrics": "outputs/runs/run_20260813T134115Z_32b915fb/validation_metrics.csv",
-    "summary": "outputs/runs/run_20260813T134115Z_32b915fb/summary.json",
-    "drift_report": "outputs/runs/run_20260813T134115Z_32b915fb/drift_report.csv",
-    "prediction_shift": "outputs/runs/run_20260813T134115Z_32b915fb/prediction_shift.csv",
+    "run_dir": "outputs/runs/run_20260813T094253Z_4bcb4b0a",
+    "feature_importance": "outputs/runs/run_20260813T094253Z_4bcb4b0a/feature_importance.csv",
+    "validation_metrics": "outputs/runs/run_20260813T094253Z_4bcb4b0a/validation_metrics.csv",
+    "summary": "outputs/runs/run_20260813T094253Z_4bcb4b0a/summary.json",
+    "drift_report": "outputs/runs/run_20260813T094253Z_4bcb4b0a/drift_report.csv",
+    "prediction_shift": "outputs/runs/run_20260813T094253Z_4bcb4b0a/prediction_shift.csv",
     "model_bundle": "outputs/model_bundle.joblib",
-    "model_bundle_versioned": "outputs/runs/run_20260813T134115Z_32b915fb/model_bundle_run_20260813T134115Z_32b915fb.joblib"
+    "model_bundle_versioned": "outputs/runs/run_20260813T094253Z_4bcb4b0a/model_bundle_run_20260813T094253Z_4bcb4b0a.joblib"
   },
   "slo": {
     "batch": {

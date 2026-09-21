@@ -1,5 +1,18 @@
 # Airbnb Demand Proxy Modeling ML
 
+<!-- portfolio-summary:start -->
+## Portfolio Snapshot
+
+**Problem:** Demand signals are split across search and contact interactions, requiring a reproducible demand proxy and a controlled model lifecycle.
+
+**Method:** Joined and validated source data, benchmarked a mean baseline against Linear Regression and XGBoost, then packaged the selected preprocessing/model workflow with monitoring and governance controls.
+
+**Output:** Holdout metrics, explainability artifacts, a versioned model bundle, run manifests, drift reports, alerts, and retraining/rollback assets.
+
+**Portfolio stack:** Python · Linear Regression · XGBoost · MLOps · Docker
+
+<!-- portfolio-summary:end -->
+
 ## Executive Summary
 This repository is a full machine learning pipeline for Airbnb-style demand proxy modeling, covering the complete lifecycle from data ingestion and validation to training, evaluation, monitoring, and model packaging. It combines an exploratory notebook with a modular Python implementation, reproducible execution, automated artifact generation, and practical MLOps workflows.
 

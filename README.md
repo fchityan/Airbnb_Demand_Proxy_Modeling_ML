@@ -253,6 +253,14 @@ Tests cover ingestion, preprocessing, evaluation, training helpers, production a
 └── requirements.txt
 ```
 
-## Performance boundary
+## Production hardening layer
 
-Historical outputs in this repository include synthetic development runs. They must not be presented as evidence of real Airbnb demand performance. For a production-data run, the authoritative performance records are the run-specific `validation_model_comparison.csv`, `test_metrics.csv`, `summary.json`, and `run_manifest.json` generated from that data source.
+The API now adds API-key authentication, SHA-256 artifact verification, JSON request logs, request IDs, Prometheus metrics, environment-controlled documentation, CI container builds, Kubernetes probes/autoscaling/disruption controls, and production runbook/security guidance.
+
+The retraining workflow was also changed so a production retrain **cannot silently use synthetic data**. It now requires explicitly staged production data and an immutable source version.
+
+See `docs/production_runbook.md`, `deploy/kubernetes.yaml`, `.env.example`, and `SECURITY.md`.
+
+## Production boundary
+
+Historical outputs in this repository include synthetic development runs. They must not be presented as evidence of real Airbnb demand performance. A live enterprise-production claim still requires deployment on real demand data with real IAM, centralized telemetry, managed registry/artifact delivery, alert routing, canary/rollback execution, outcome feedback, and operational ownership.

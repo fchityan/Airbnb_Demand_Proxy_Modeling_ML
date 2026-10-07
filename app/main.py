@@ -8,11 +8,23 @@ from typing import Any
 
 import joblib
 import pandas as pd
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import Depends, FastAPI, HTTPException, Request
 from pydantic import BaseModel, Field
+
+from app.production import (
+    configure_logging,
+    install_observability,
+    metrics_response,
+    register_model_metrics,
+    require_api_key,
+    verify_model_artifact,
+)
 
 MODEL_PATH = Path(os.getenv("MODEL_PATH", "outputs/model_bundle.joblib"))
 MAX_BATCH_SIZE = int(os.getenv("MAX_BATCH_SIZE", "100"))
+DOCS_ENABLED = os.getenv("ENABLE_DOCS", "true").lower() in {"1", "true", "yes", "on"}
+
+configure_logging()
 
 
 class PredictionRequest(BaseModel):
@@ -41,14 +53,25 @@ def _load_bundle() -> dict[str, Any]:
 async def lifespan(application: FastAPI):
     application.state.bundle = None
     application.state.load_error = None
+    application.state.model_sha256 = None
     try:
+        application.state.model_sha256 = verify_model_artifact(MODEL_PATH)
         application.state.bundle = _load_bundle()
-    except Exception as exc:  # liveness remains available while readiness reports the model error
+        register_model_metrics(application.state.bundle["model_name"], application.state.bundle["model_version"])
+    except Exception as exc:
         application.state.load_error = str(exc)
     yield
 
 
-app = FastAPI(title="Airbnb Guest Demand Proxy API", version="2.0.0", lifespan=lifespan)
+app = FastAPI(
+    title="Airbnb Guest Demand Proxy API",
+    version="3.0.0",
+    lifespan=lifespan,
+    docs_url="/docs" if DOCS_ENABLED else None,
+    redoc_url="/redoc" if DOCS_ENABLED else None,
+    openapi_url="/openapi.json" if DOCS_ENABLED else None,
+)
+install_observability(app)
 
 
 def _require_bundle(request: Request) -> dict[str, Any]:
@@ -63,10 +86,7 @@ def _validate_features(features: dict[str, float], expected_features: list[str])
     missing = [name for name in expected_features if name not in received]
     unexpected = sorted(received - set(expected_features))
     if missing or unexpected:
-        raise HTTPException(
-            status_code=422,
-            detail={"missing_features": missing, "unexpected_features": unexpected},
-        )
+        raise HTTPException(status_code=422, detail={"missing_features": missing, "unexpected_features": unexpected})
 
     values = []
     for name in expected_features:
@@ -91,6 +111,11 @@ def _score_one(payload: PredictionRequest, bundle: dict[str, Any]) -> Prediction
     )
 
 
+@app.get("/")
+def root() -> dict[str, str]:
+    return {"service": "airbnb-guest-demand-proxy", "version": app.version}
+
+
 @app.get("/live")
 def live() -> dict[str, str]:
     return {"status": "ok"}
@@ -98,17 +123,25 @@ def live() -> dict[str, str]:
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    """Backward-compatible liveness alias."""
     return {"status": "ok"}
 
 
 @app.get("/ready")
 def ready(request: Request) -> dict[str, str]:
     bundle = _require_bundle(request)
-    return {"status": "ready", "model_version": bundle["model_version"]}
+    return {
+        "status": "ready",
+        "model_version": bundle["model_version"],
+        "service_env": os.getenv("SERVICE_ENV", "development"),
+    }
 
 
-@app.get("/metadata")
+@app.get("/metrics")
+def metrics():
+    return metrics_response()
+
+
+@app.get("/metadata", dependencies=[Depends(require_api_key)])
 def metadata(request: Request) -> dict[str, Any]:
     bundle = _require_bundle(request)
     return {
@@ -118,15 +151,18 @@ def metadata(request: Request) -> dict[str, Any]:
         "feature_columns": bundle["feature_columns"],
         "target_column": bundle.get("training_config", {}).get("target_column", "target"),
         "source_metadata": bundle.get("source_metadata", {}),
+        "promotion_status": bundle.get("promotion_status"),
+        "model_sha256": request.app.state.model_sha256,
+        "service_env": os.getenv("SERVICE_ENV", "development"),
     }
 
 
-@app.post("/predict", response_model=PredictionResponse)
+@app.post("/predict", response_model=PredictionResponse, dependencies=[Depends(require_api_key)])
 def predict(payload: PredictionRequest, request: Request) -> PredictionResponse:
     return _score_one(payload, _require_bundle(request))
 
 
-@app.post("/predict/batch", response_model=list[PredictionResponse])
+@app.post("/predict/batch", response_model=list[PredictionResponse], dependencies=[Depends(require_api_key)])
 def predict_batch(payloads: list[PredictionRequest], request: Request) -> list[PredictionResponse]:
     if not payloads:
         raise HTTPException(status_code=400, detail="At least one record is required.")

@@ -1,0 +1,91 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: airbnb-demand-api-config}
+data:
+  SERVICE_ENV: production
+  LOG_LEVEL: INFO
+  MODEL_PATH: /app/models/model_bundle.joblib
+  MAX_BATCH_SIZE: "100"
+  ENABLE_DOCS: "false"
+  REQUIRE_API_KEY: "true"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: airbnb-demand-api}
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: airbnb-demand-api}
+  template:
+    metadata:
+      labels: {app: airbnb-demand-api}
+    spec:
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: api
+          image: ghcr.io/fchityan/airbnb-demand-proxy-modeling-ml:latest
+          ports: [{containerPort: 8000}]
+          envFrom:
+            - configMapRef: {name: airbnb-demand-api-config}
+          env:
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef: {name: airbnb-demand-api-secrets, key: api-key}
+            - name: MODEL_SHA256
+              valueFrom:
+                secretKeyRef: {name: airbnb-demand-api-secrets, key: model-sha256, optional: true}
+          readinessProbe:
+            httpGet: {path: /ready, port: 8000}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /live, port: 8000}
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests: {cpu: 100m, memory: 384Mi}
+            limits: {cpu: "1", memory: 1536Mi}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: ["ALL"]}
+          volumeMounts:
+            - {name: model, mountPath: /app/models, readOnly: true}
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - name: model
+          persistentVolumeClaim: {claimName: airbnb-demand-model}
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: airbnb-demand-api}
+spec:
+  type: ClusterIP
+  selector: {app: airbnb-demand-api}
+  ports: [{port: 80, targetPort: 8000}]
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: {name: airbnb-demand-api}
+spec:
+  scaleTargetRef: {apiVersion: apps/v1, kind: Deployment, name: airbnb-demand-api}
+  minReplicas: 2
+  maxReplicas: 8
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target: {type: Utilization, averageUtilization: 70}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: {name: airbnb-demand-api}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels: {app: airbnb-demand-api}

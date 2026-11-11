@@ -1,4 +1,4 @@
-# Airbnb Guest Demand Proxy
+# Guest Demand Proxy & Predictive Analytics
 
 ## Project Overview
 

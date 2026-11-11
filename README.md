@@ -57,7 +57,7 @@ See [requirements and solution design](docs/business-analysis/business-requireme
 
 - [Business analysis, solution design and AI-governance documentation](docs/README.md)
 
-- [Original exploratory notebook](Airbnb%20Demand%20Proxy%20Modeling.ipynb)
+- [Original exploratory notebook](data-discovery-and-insights/marketplace-demand-proxy-feature-analysis.ipynb)
 - [Technical guide — data modes, model workflow, and commands](docs/solution-design/solution-design-and-implementation-guide.md)
 - [Deployment and operations notes](docs/operational-readiness/service-transition-and-operations-runbook.md)
 - [Security guidance](SECURITY.md)

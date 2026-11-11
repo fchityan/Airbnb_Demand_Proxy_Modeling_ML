@@ -239,7 +239,7 @@ Tests cover ingestion, preprocessing, evaluation, training helpers, production a
 
 ```text
 .
-├── Airbnb Demand Proxy Modeling.ipynb
+├── data-discovery-and-insights/marketplace-demand-proxy-feature-analysis.ipynb
 ├── app/
 │   └── main.py
 ├── src/

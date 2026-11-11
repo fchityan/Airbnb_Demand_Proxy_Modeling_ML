@@ -40,6 +40,7 @@ See [requirements and solution design](docs/business-analysis/business-requireme
 | Existing folder | Role-relevant technical purpose |
 |---|---|
 | `app/` | API integration and digital solution delivery |
+| `data-discovery-and-insights/` | Business data discovery, demand-proxy definitions and feature analysis |
 | `src/` | Data preparation, regression modelling and AI lifecycle |
 | `tests/` | Automated verification (not completed UAT) |
 | `outputs/` | Model evaluation, monitoring and traceability artefacts |

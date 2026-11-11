@@ -33,7 +33,7 @@ The pipeline demonstrates a repeatable approach to demand-proxy modelling, but *
 - **Digital transformation:** Map workbook ingestion, decision-support workflow, API integration and monitoring responsibilities.
 - **AI enablement:** Assess data quality, model selection, evaluation evidence, lineage and governance gaps.
 
-See [requirements and solution design](docs/business-analysis/requirements-and-solution-design.md) and [AI readiness and governance](docs/ai-enablement/readiness-and-governance.md). These are project artefacts, not claims of formal stakeholder sign-off.
+See [requirements and solution design](docs/business-analysis/business-requirements-and-solution-design.md) and [AI readiness and governance](docs/ai-enablement/ai-readiness-and-model-governance-assessment.md). These are project artefacts, not claims of formal stakeholder sign-off.
 
 ### Folder guide
 
@@ -43,7 +43,7 @@ See [requirements and solution design](docs/business-analysis/requirements-and-s
 | `src/` | Data preparation, regression modelling and AI lifecycle |
 | `tests/` | Automated verification (not completed UAT) |
 | `outputs/` | Model evaluation, monitoring and traceability artefacts |
-| `deploy/` | Deployment architecture and operational readiness |
+| `deployment-architecture/` | Deployment architecture and operational readiness |
 | `docs/` | Requirements analysis, solution design and AI governance |
 
 ## Technology Stack
@@ -55,9 +55,11 @@ See [requirements and solution design](docs/business-analysis/requirements-and-s
 
 ## Explore the Project
 
+- [Business analysis, solution design and AI-governance documentation](docs/README.md)
+
 - [Original exploratory notebook](Airbnb%20Demand%20Proxy%20Modeling.ipynb)
-- [Technical guide — data modes, model workflow, and commands](docs/technical_guide.md)
-- [Deployment and operations notes](docs/production_runbook.md)
+- [Technical guide — data modes, model workflow, and commands](docs/solution-design/solution-design-and-implementation-guide.md)
+- [Deployment and operations notes](docs/operational-readiness/service-transition-and-operations-runbook.md)
 - [Security guidance](SECURITY.md)
 
 To explore the pipeline with **synthetic development data**, run `python -m src.run_pipeline` after installing `requirements.txt`. See the technical guide to use real data.

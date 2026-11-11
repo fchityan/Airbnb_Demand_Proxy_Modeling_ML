@@ -1,4 +1,4 @@
-# Business Requirements & Solution Design — Airbnb Guest Demand Proxy
+# Business Requirements & Solution Design Specification — Airbnb Guest Demand Proxy
 
 This is a **project-level solution-analysis document**, not a stakeholder-approved Business Requirements Document (BRD) or completed User Acceptance Testing (UAT) record.
 
@@ -27,4 +27,4 @@ These checks are **suggested BA acceptance criteria**, not customer UAT sign-off
 
 A real operational rollout requires data ownership, refresh-frequency and service-level agreements (SLAs), business KPI definitions, exception-handling procedures, integration testing, model-change approvals, and an operating owner for monitoring alerts. Synthetic runs cannot establish business impact.
 
-See [AI enablement readiness](../ai-enablement/readiness-and-governance.md) and the existing [technical guide](../technical_guide.md).
+See [AI enablement readiness](../ai-enablement/ai-readiness-and-model-governance-assessment.md) and the existing [technical guide](../solution-design/solution-design-and-implementation-guide.md).

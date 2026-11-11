@@ -1,4 +1,4 @@
-# Model Rollback Plan
+# Release Recovery & Model Rollback Plan
 
 ## Trigger Conditions
 - `monitoring_alerts.json` sets any of `mae_alert`, `rmse_alert`, `r2_alert`, or `relative_rmse_alert` to `true`.

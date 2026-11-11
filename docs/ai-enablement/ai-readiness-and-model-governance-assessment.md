@@ -1,4 +1,4 @@
-# AI Enablement Readiness & Governance — Airbnb Guest Demand Proxy
+# AI Readiness & Model Governance Assessment — Airbnb Guest Demand Proxy
 
 ## Data readiness
 
@@ -19,4 +19,4 @@ The regression target is `n_guests`. Search-frequency, stay-length and filter fe
 
 **AI-enablement assessment:** a reproducible reference implementation requiring an independently evaluated real-data pilot before live business use.
 
-See [requirements and solution design](../business-analysis/requirements-and-solution-design.md).
+See [requirements and solution design](../business-analysis/business-requirements-and-solution-design.md).

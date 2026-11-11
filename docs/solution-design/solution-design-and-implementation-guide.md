@@ -1,6 +1,6 @@
-# Airbnb Guest Demand Proxy — Technical Guide
+# Solution Design & Implementation Guide — Airbnb Guest Demand Proxy
 
-This guide preserves the detailed implementation, model workflow, evaluation, deployment notes, and run commands previously included in the root README. Commands and file paths are relative to the repository root. For a concise summary, see the [project overview](../README.md).
+This guide preserves the detailed implementation, model workflow, evaluation, deployment notes, and run commands previously included in the root README. Commands and file paths are relative to the repository root. For a concise summary, see the [project overview](../../README.md).
 
 ---
 
@@ -263,4 +263,4 @@ The API now adds API-key authentication, SHA-256 artifact verification, JSON req
 
 The retraining workflow was also changed so a production retrain **cannot silently use synthetic data**. It now requires explicitly staged production data and an immutable source version.
 
-See `docs/production_runbook.md`, `deploy/kubernetes.yaml`, `.env.example`, and `SECURITY.md`.
+See `docs/operational-readiness/service-transition-and-operations-runbook.md`, `deployment-architecture/kubernetes.yaml`, `.env.example`, and `SECURITY.md`.

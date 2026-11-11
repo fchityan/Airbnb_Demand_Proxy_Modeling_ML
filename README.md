@@ -29,7 +29,10 @@ The pipeline demonstrates a repeatable approach to demand-proxy modelling, but *
 
 ## Technology Stack
 
-**Python · pandas · scikit-learn · XGBoost · FastAPI · Docker**
+- **Language and data:** Python, NumPy, pandas, openpyxl (Excel workbooks), Jupyter Notebook
+- **Machine learning:** scikit-learn (mean baseline, Linear Regression, preprocessing, regression metrics), XGBoost, joblib for model serialization
+- **API and monitoring:** FastAPI, Uvicorn, Prometheus Python client, prediction/feature-drift reporting
+- **Deployment and automation:** Docker, Kubernetes, GitHub Actions CI, Python unittest
 
 ## Explore the Project
 

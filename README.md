@@ -27,6 +27,25 @@ Search activity and booking interest are imperfect signals of demand. The challe
 
 The pipeline demonstrates a repeatable approach to demand-proxy modelling, but **historical outputs include synthetic development runs**. Those outputs are not evidence of real Airbnb demand-prediction accuracy. Real-world performance would require suitable external data and independent evaluation.
 
+## Business Analysis, Digital Transformation & AI Enablement
+
+- **Business analysis:** Define the guest-demand proxy, source-data requirements, target leakage risk and proposed acceptance criteria.
+- **Digital transformation:** Map workbook ingestion, decision-support workflow, API integration and monitoring responsibilities.
+- **AI enablement:** Assess data quality, model selection, evaluation evidence, lineage and governance gaps.
+
+See [requirements and solution design](docs/business-analysis/requirements-and-solution-design.md) and [AI readiness and governance](docs/ai-enablement/readiness-and-governance.md). These are project artefacts, not claims of formal stakeholder sign-off.
+
+### Folder guide
+
+| Existing folder | Role-relevant technical purpose |
+|---|---|
+| `app/` | API integration and digital solution delivery |
+| `src/` | Data preparation, regression modelling and AI lifecycle |
+| `tests/` | Automated verification (not completed UAT) |
+| `outputs/` | Model evaluation, monitoring and traceability artefacts |
+| `deploy/` | Deployment architecture and operational readiness |
+| `docs/` | Requirements analysis, solution design and AI governance |
+
 ## Technology Stack
 
 - **Language and data:** Python, NumPy, pandas, openpyxl (Excel workbooks), Jupyter Notebook

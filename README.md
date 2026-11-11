@@ -260,7 +260,3 @@ The API now adds API-key authentication, SHA-256 artifact verification, JSON req
 The retraining workflow was also changed so a production retrain **cannot silently use synthetic data**. It now requires explicitly staged production data and an immutable source version.
 
 See `docs/production_runbook.md`, `deploy/kubernetes.yaml`, `.env.example`, and `SECURITY.md`.
-
-## Production boundary
-
-Historical outputs in this repository include synthetic development runs. They must not be presented as evidence of real Airbnb demand performance. A live enterprise-production claim still requires deployment on real demand data with real IAM, centralized telemetry, managed registry/artifact delivery, alert routing, canary/rollback execution, outcome feedback, and operational ownership.

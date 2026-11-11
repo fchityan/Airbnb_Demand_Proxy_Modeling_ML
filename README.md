@@ -1,4 +1,4 @@
-# Airbnb Guest Demand Proxy — Production ML
+# Airbnb Guest Demand Proxy
 
 A production-oriented regression system based on the original Airbnb demand-proxy notebook, with explicit target semantics, validation-only model selection, baseline promotion gates, versioned artifacts, monitoring, and online/batch serving.
 

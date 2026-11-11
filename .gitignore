@@ -14,3 +14,5 @@ env/
 # OS/editor artifacts
 .DS_Store
 
+# Personal editor settings
+.vscode/

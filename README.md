@@ -36,7 +36,7 @@ The pipeline demonstrates a repeatable approach to demand-proxy modelling, but *
 
 ## Explore the Project
 
-- [Business analysis, solution design and AI-governance documentation](docs/README.md)
+- [Guest demand proxy — business analysis, ML solution design and operational readiness](docs/README.md)
 
 - [Original exploratory notebook](data-discovery-and-insights/marketplace-demand-proxy-feature-analysis.ipynb)
 - [Technical guide — data modes, model workflow, and commands](docs/solution-design/solution-design-and-implementation-guide.md)

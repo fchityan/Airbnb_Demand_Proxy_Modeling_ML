@@ -34,9 +34,9 @@ The pipeline demonstrates a repeatable approach to demand-proxy modelling, but *
 - **API and monitoring:** FastAPI, Uvicorn, Prometheus Python client, prediction/feature-drift reporting
 - **Deployment and automation:** Docker, Kubernetes, GitHub Actions CI, Python unittest
 
-## Enterprise-Style Documentation (Reference, Not Production Approval)
+## Project Documentation
 
-[Business requirements, solution/data architecture, model assurance and operating controls](docs/enterprise/README.md). The pack distinguishes synthetic development evidence from validated real-data outcomes and does not imply stakeholder sign-off.
+[Guest Demand Proxy](docs/enterprise/README.md). The pack distinguishes synthetic development evidence from validated real-data outcomes and does not imply stakeholder sign-off.
 
 ## Explore the Project
 

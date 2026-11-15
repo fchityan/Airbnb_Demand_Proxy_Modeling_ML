@@ -1,4 +1,4 @@
-# Guest Demand Proxy — Enterprise Documentation Reference Pack
+# Guest Demand Proxy
 
 **Maturity:** Portfolio / pre-pilot reference; not a deployed marketplace forecasting system. Historical outputs include **synthetic development runs**, which are not real-world predictive accuracy evidence.
 

@@ -6,7 +6,7 @@ Exploratory research into search and contact activity as signals for a guest-cou
 
 ## Input and reproducibility
 
-- The notebook expects `contacts.xlsx` and `searches.xlsx` in its working directory, or edited paths in its loading cell. These workbooks are not included in the public repository.
+- Set `CONTACTS_DATA_PATH` and `SEARCHES_DATA_PATH` to the two private workbook paths before running the notebook. These workbooks are not included in the public repository.
 - The supported application pipeline in `../src/` also accepts source workbooks or model-ready tabular data. Its loader expects named workbook sheets; see the [Implementation Guide](../docs/solution-design/solution-design-and-implementation-guide.md).
 - Keep personally identifiable information and non-public source records out of GitHub.
 - Historical synthetic development runs do not establish real-market prediction accuracy.

@@ -29,7 +29,7 @@ The production upgrade fixes several gaps that matter more than adding another m
 
 ## Workbook production features
 
-For the raw `contacts.xlsx` + `searches.xlsx` workflow, the model frame uses search-intent features available before the target is evaluated:
+For the raw `$CONTACTS_DATA_PATH` + `$SEARCHES_DATA_PATH` workflow, the model frame uses search-intent features available before the target is evaluated:
 
 ```text
 n_searches
@@ -59,8 +59,8 @@ The loader deliberately does not train on IDs, the guest-count target itself, or
 Place these files in one directory:
 
 ```text
-contacts.xlsx
-searches.xlsx
+$CONTACTS_DATA_PATH
+$SEARCHES_DATA_PATH
 ```
 
 Then run:

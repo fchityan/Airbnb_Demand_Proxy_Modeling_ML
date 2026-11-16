@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -42,10 +43,14 @@ def _load_excel_workbook(directory_path: Path) -> pd.DataFrame:
     production frame therefore predicts n_guests and explicitly removes n_guests,
     identifiers, and post-contact message counts from model features.
     """
-    contacts_path = directory_path / "contacts.xlsx"
-    searches_path = directory_path / "searches.xlsx"
-    if not contacts_path.exists() or not searches_path.exists():
-        raise FileNotFoundError("Expected contacts.xlsx and searches.xlsx in the provided data directory.")
+    contacts_source = os.environ.get("CONTACTS_DATA_PATH")
+    searches_source = os.environ.get("SEARCHES_DATA_PATH")
+    if not contacts_source or not searches_source:
+        raise ValueError("Set CONTACTS_DATA_PATH and SEARCHES_DATA_PATH to authorised private input files.")
+    contacts_path = Path(contacts_source).expanduser()
+    searches_path = Path(searches_source).expanduser()
+    if not contacts_path.is_file() or not searches_path.is_file():
+        raise FileNotFoundError("One or more configured private workbook paths do not exist.")
 
     contacts = pd.read_excel(contacts_path, sheet_name="contacts")
     searches = pd.read_excel(searches_path, sheet_name="searches")
